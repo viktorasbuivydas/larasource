@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import { AppWindow, Hammer, Presentation, HardHat } from 'lucide-vue-next'
+import { AppWindow, Hammer, Presentation, HardHat, BadgePlus } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -36,9 +36,11 @@ import { AppWindow, Hammer, Presentation, HardHat } from 'lucide-vue-next'
                         Jobs
                     </a>
                 </li>
-                <!-- <li><a>Talent</a></li> -->
                 <li>
-                    <!-- <Link :href="route('jobs.create')" role="button" class="btn btn-primary btn-sm">Post a job</Link> -->
+                    <Link href="" role="button" class="btn btn-primary btn-sm">
+                    <BadgePlus />
+                    Post a job
+                    </Link>
                 </li>
             </ul>
         </div>
