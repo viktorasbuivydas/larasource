@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import { AppWindow, Hammer, Presentation, HardHat } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -12,10 +13,29 @@ import { Link } from '@inertiajs/vue3'
         <div class="flex-none">
             <ul class="items-center space-x-2 px-1 menu menu-horizontal">
                 <li>
-                    <!-- <Link :href="route('jobs.index')">Jobs</Link> -->
+                    <a>
+                        <AppWindow />
+                        Projects
+                    </a>
                 </li>
-                <li><a>Projects</a></li>
-                <li><a>Packages</a></li>
+                <li>
+                    <a>
+                        <Hammer />
+                        Packages
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <Presentation />
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <HardHat />
+                        Jobs
+                    </a>
+                </li>
                 <!-- <li><a>Talent</a></li> -->
                 <li>
                     <!-- <Link :href="route('jobs.create')" role="button" class="btn btn-primary btn-sm">Post a job</Link> -->
