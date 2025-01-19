@@ -1,5 +1,6 @@
 <script setup>
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import VerticalListingCard from '@/Components/Cards/VerticalListingCard.vue';
 
 defineProps({
 
@@ -7,14 +8,25 @@ defineProps({
 </script>
 <template>
     <DefaultLayout>
-        <div class="flex flex-col gap-10 mx-auto container">
+        <div class="flex flex-col gap-10 mx-auto container mb-10">
             <div class="flex flex-col items-center justify-center space-y-4">
                 <h1 class="font-bold text-4xl text-center">
-                    Find all Laravel Open Source projects
+                    Explore the Laravel Open Source Universe
                 </h1>
                 <p class="text-center">
-                    Looking for a specific project? We update all the packages/projects on a daily basis.
+                    Browse hand-picked Laravel projects, updated daily to fuel your next development journey
                 </p>
+            </div>
+        </div>
+        <div class="flex gap-5">
+            <div class="bg-base-200 max-w-[300px] p-2 w-full h-fit">
+                <h3>Filters</h3>
+                <ul>
+                    <li>Forks</li>
+                </ul>
+            </div>
+            <div class="grow p-2 grid grid-cols-3 gap-4">
+                <VerticalListingCard v-for="i in 100" :key="i" />
             </div>
         </div>
     </DefaultLayout>

@@ -1,6 +1,8 @@
 <script setup>
 import { Link, useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { Send } from 'lucide-vue-next';
+import LogoLink from '@/Components/LogoLink.vue';
 
 const date = computed(() => {
     let date = 2025;
@@ -14,21 +16,22 @@ const date = computed(() => {
 </script>
 
 <template>
-    <div class="bg-base-200 w-full flex flex-col gap-10 py-10 border-t border-gray-700 mt-10">
+    <div class="bg-base-200 w-full flex flex-col gap-10 py-10 border-t border-gray-700">
         <div class="flex flex-col gap-2 items-center">
 
         </div>
         <div class="mx-auto flex space-x-4 items-center">
             <div class="flex flex-col gap-2">
                 <div>Couldn't find specific project/package?</div>
-                <Link href="" class="btn btn-primary">Submit here!</Link>
+                <Link href="" class="btn btn-primary">
+                <Send />
+                Send here!
+                </Link>
             </div>
         </div>
         <div class="grid grid-cols-3">
             <div class="flex justify-center items-center">
-                <Link :href="route('index')" class="btn btn-ghost">
-                <span class="ml-2">LaraSource</span>
-                </Link>
+                <LogoLink />
             </div>
             <div>
                 <h3 class="text-lg font-bold">For developers</h3>
