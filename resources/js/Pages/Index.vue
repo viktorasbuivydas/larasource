@@ -19,14 +19,27 @@ defineProps({
             </div>
         </div>
         <div class="flex gap-5">
-            <div class="bg-base-200 max-w-[300px] p-2 w-full h-fit">
+            <div class="bg-base-200 max-w-[200px] p-2 w-full h-fit hidden xl:flex lg:flex-col gap-2">
                 <h3>Filters</h3>
-                <ul>
-                    <li>Forks</li>
-                </ul>
+                <div>
+                    Type
+                    <select name="" id="">
+                        <option value="">All</option>
+                        <option value="">Project</option>
+                        <option value="">Package</option>
+                    </select>
+                </div>
+                <div>
+                    Slider forks
+                </div>
+                <div>Slider stars</div>
+                <div>Slider watches</div>
+                <div>
+                    show TagsInputInput
+                </div>
             </div>
-            <div class="grow p-2 grid grid-cols-3 gap-4">
-                <VerticalListingCard v-for="i in 100" :key="i" />
+            <div class="grow p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <VerticalListingCard v-for="i in 20" :key="i" />
             </div>
         </div>
     </DefaultLayout>

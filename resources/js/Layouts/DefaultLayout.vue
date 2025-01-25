@@ -5,7 +5,7 @@ import BaseFooter from '@/Components/Base/Footer.vue';
 
 <template>
     <BaseNavbar />
-    <div class="py-10 flex flex-col gap-5">
+    <div class="py-10 flex flex-col gap-5 container">
         <slot />
     </div>
     <BaseFooter />

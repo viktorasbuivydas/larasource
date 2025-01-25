@@ -16,7 +16,7 @@ const date = computed(() => {
 </script>
 
 <template>
-    <div class="bg-base-200 w-full flex flex-col gap-10 py-10 border-t border-gray-700">
+    <div class="bg-base-200 w-full flex flex-col gap-10 py-10 px-4 border-t border-gray-700">
         <div class="flex flex-col gap-2 items-center">
 
         </div>
@@ -29,7 +29,7 @@ const date = computed(() => {
                 </Link>
             </div>
         </div>
-        <div class="grid grid-cols-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div class="flex justify-center items-center">
                 <LogoLink />
             </div>
