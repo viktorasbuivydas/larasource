@@ -28,6 +28,7 @@ return new class extends Migration
             $table->json('topics')->nullable();
             $table->dateTimeTz('created_repository_at');
             $table->dateTimeTz('updated_repository_at');
+            $table->dateTime('approved_at')->nullable();
             $table->timestamps();
         });
     }

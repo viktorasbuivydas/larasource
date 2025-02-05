@@ -27,6 +27,7 @@ class Repository extends Model
         'topics',
         'created_repository_at',
         'updated_repository_at',
+        'approved_at'
     ];
 
     protected $casts = [
@@ -35,6 +36,7 @@ class Repository extends Model
         'archived' => 'boolean',
         'disabled' => 'boolean',
         'topics' => 'array',
+        'approved_at' => 'datetime'
     ];
 
     public function owners(): BelongsToMany
@@ -45,5 +47,10 @@ class Repository extends Model
     public function licenses(): BelongsToMany
     {
         return $this->belongsToMany(License::class);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('approved_at', '>', now());
     }
 }

@@ -13,6 +13,7 @@ class IndexController extends Controller
     {
         $repositories = Cache::remember('repositories', 60, function () {
             return Repository::query()
+                ->approved()
                 ->with(['owners', 'licenses'])
                 ->paginate(20);
         });
