@@ -37,16 +37,6 @@ class Repository extends Model
         'topics' => 'array',
     ];
 
-    public function owner(): BelongsTo
-    {
-        return $this->belongsTo(Owner::class);
-    }
-
-    public function license(): BelongsTo
-    {
-        return $this->belongsTo(License::class);
-    }
-
     public function owners(): BelongsToMany
     {
         return $this->belongsToMany(Owner::class);

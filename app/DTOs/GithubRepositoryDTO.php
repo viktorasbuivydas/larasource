@@ -23,6 +23,14 @@ readonly class GithubRepositoryDTO
         public string $updatedRepositoryAt,
         public stdClass $owner,
         public ?stdClass $license = null,
+        public bool $private,
+        public bool $fork,
+        public int $forksCount,
+        public int $stargazersCount,
+        public int $watchersCount,
+        public bool $archived,
+        public bool $disabled,
+        public int $openIssuesCount,
     ) {}
 
     public static function fromApiResponse(array $items): Collection
@@ -39,7 +47,15 @@ readonly class GithubRepositoryDTO
             createdRepositoryAt: Carbon::parse($item->created_at)->format('Y-m-d H:i:s'),
             updatedRepositoryAt: Carbon::parse($item->updated_at)->format('Y-m-d H:i:s'),
             owner: $item->owner,
-            license: $item->license
+            license: $item->license,
+            private: $item->private,
+            fork: $item->fork,
+            forksCount: $item->forks_count,
+            watchersCount: $item->watchers_count,
+            archived: $item->archived,
+            disabled: $item->disabled,
+            openIssuesCount: $item->open_issues_count,
+            stargazersCount: $item->stargazers_count
         ));
     }
 
@@ -55,7 +71,15 @@ readonly class GithubRepositoryDTO
             'language' => $this->language,
             'topics' => $this->topics,
             'created_repository_at' => $this->createdRepositoryAt,
-            'updated_repository_at' => $this->updatedRepositoryAt
+            'updated_repository_at' => $this->updatedRepositoryAt,
+            'private' => $this->private,
+            'fork' => $this->fork,
+            'forks_count' => $this->forksCount,
+            'stargazers_count' => $this->stargazersCount,
+            'watchers_count' => $this->watchersCount,
+            'archived' => $this->archived,
+            'disabled' => $this->disabled,
+            'open_issues_count' => $this->openIssuesCount
         ];
     }
 }

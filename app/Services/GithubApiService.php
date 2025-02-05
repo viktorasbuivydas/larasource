@@ -12,7 +12,7 @@ class GithubApiService
             'query' => [
                 'q' => $query,
                 'page' => $page,
-                'per_page' => 30,
+                'per_page' => 100,
                 'sort' => 'stars',
                 'order' => 'desc',
             ],

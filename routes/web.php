@@ -1,10 +1,6 @@
 <?php
 
-use Inertia\Inertia;
-use App\Services\GithubApiService;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\IndexController;
 
-Route::get('/', function () {
-    return inertia('Index');
-})->name('index');
+Route::get('/', [IndexController::class, 'index'])->name('index');

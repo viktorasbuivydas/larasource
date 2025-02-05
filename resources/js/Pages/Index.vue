@@ -3,7 +3,7 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import VerticalListingCard from '@/Components/Cards/VerticalListingCard.vue';
 
 defineProps({
-
+    repositories: Array,
 });
 </script>
 <template>
@@ -39,7 +39,20 @@ defineProps({
                 </div>
             </div>
             <div class="grow p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <VerticalListingCard v-for="i in 20" :key="i" />
+                <template v-if="repositories.data.length > 0">
+                    <VerticalListingCard v-for="repository in repositories.data" :key="repository.id"
+                        :repository="repository" />
+                </template>
+                <template v-else>
+                    <div class="flex flex-col space-y-4">
+                        <h1 class="font-bold text-4xl text-center">
+                            No results found
+                        </h1>
+                        <p class="text-center">
+                            Try a different search query or filter
+                        </p>
+                    </div>
+                </template>
             </div>
         </div>
     </DefaultLayout>
