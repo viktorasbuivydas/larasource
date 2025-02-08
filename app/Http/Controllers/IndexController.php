@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $repositories = Cache::remember('repositories', 60, function () {
+        $repositories = Cache::remember('repositories-' . request()->query('page', 1), 60, function () {
             return Repository::query()
                 ->approved()
                 ->with(['owners', 'licenses'])

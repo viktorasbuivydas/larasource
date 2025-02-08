@@ -3,9 +3,10 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import VerticalListingCard from '@/Components/Cards/VerticalListingCard.vue';
 
 defineProps({
-    repositories: Array,
-});
+    repositories: Array
+})
 </script>
+
 <template>
     <DefaultLayout>
         <div class="flex flex-col gap-10 mx-auto container mb-10">
