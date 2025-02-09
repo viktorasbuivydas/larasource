@@ -25,7 +25,7 @@ class ListRepositories extends ListRecords
                         ->success()
                         ->send();
                 })
-                ->color('success')
+                ->color('danger')
 
         ];
     }

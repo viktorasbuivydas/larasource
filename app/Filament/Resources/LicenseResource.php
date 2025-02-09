@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LicenseResource\Pages;
-use App\Filament\Resources\LicenseResource\RelationManagers;
-use App\Models\License;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\License;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\LicenseResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\LicenseResource\RelationManagers;
 
 class LicenseResource extends Resource
 {
@@ -23,7 +25,8 @@ class LicenseResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
+                TextInput::make('url')
             ]);
     }
 
@@ -31,7 +34,7 @@ class LicenseResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->sortable(),
             ])
             ->filters([
                 //

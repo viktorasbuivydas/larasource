@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class License extends Model
 {
     protected $fillable = [
-        'key',
         'name',
+        'url'
     ];
 
     public function repositories(): BelongsToMany
