@@ -29,6 +29,7 @@ return new class extends Migration
             $table->dateTimeTz('created_repository_at');
             $table->dateTimeTz('updated_repository_at');
             $table->dateTime('approved_at')->nullable();
+            $table->string('thumbnail_url')->nullable();
             $table->timestamps();
         });
     }

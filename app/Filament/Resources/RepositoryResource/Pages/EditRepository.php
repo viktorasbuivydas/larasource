@@ -18,6 +18,11 @@ class EditRepository extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('View on Github')
+                ->link()
+                ->url(fn($record) => $record->html_url)
+                ->openUrlInNewTab(),
+
             Actions\DeleteAction::make(),
             PreviousAction::make(),
             NextAction::make(),

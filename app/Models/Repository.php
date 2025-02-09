@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -27,8 +28,11 @@ class Repository extends Model
         'topics',
         'created_repository_at',
         'updated_repository_at',
-        'approved_at'
+        'approved_at',
+        'thumbnail_url'
     ];
+
+    protected $appends = ['thumbnail'];
 
     protected $casts = [
         'private' => 'boolean',
@@ -47,6 +51,15 @@ class Repository extends Model
     public function licenses(): BelongsToMany
     {
         return $this->belongsToMany(License::class);
+    }
+
+    public function getThumbnailAttribute(): string
+    {
+        if (!$this->thumbnail_url) {
+            return '/example-card.png';
+        }
+
+        return Storage::url($this->thumbnail_url);
     }
 
     public function scopeApproved($query)

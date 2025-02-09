@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\RepositoryResource\Pages;
 
-use App\Filament\Resources\RepositoryResource;
 use Filament\Actions;
+use Illuminate\Support\Facades\Cache;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\RepositoryResource;
 
 class ListRepositories extends ListRecords
 {
@@ -14,6 +16,17 @@ class ListRepositories extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\Action::make('clear_cache')
+                ->action(function () {
+                    Cache::flush();
+
+                    Notification::make()
+                        ->title('Cache cleared successfully')
+                        ->success()
+                        ->send();
+                })
+                ->color('success')
+
         ];
     }
 }
