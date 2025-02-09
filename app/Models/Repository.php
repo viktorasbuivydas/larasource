@@ -51,6 +51,13 @@ class Repository extends Model
 
     public function scopeApproved($query)
     {
-        return $query->where('approved_at', '>', now());
+        return $query->where('approved_at', '<', now());
+    }
+
+    public function approve()
+    {
+        $this->update([
+            'approved_at' => now()
+        ]);
     }
 }
