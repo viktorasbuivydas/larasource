@@ -78,8 +78,10 @@ class RepositoryResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id'),
                 TextColumn::make('full_name'),
                 BooleanColumn::make('approved_at')
+                    ->sortable()
                     ->label('Approved')
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -95,7 +97,9 @@ class RepositoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('approved_at', 'asc');
+        // ->defaultGroup('approved_at');
     }
 
     public static function getRelations(): array

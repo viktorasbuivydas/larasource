@@ -23,6 +23,10 @@ class IndexController extends Controller
             ]);
         }
 
+        if (request()->wantsJson()) {
+            return $this->getRepositories();
+        }
+
         return inertia('Index', [
             'repositories' => $this->getRepositories()
         ]);
@@ -33,6 +37,6 @@ class IndexController extends Controller
         return Repository::query()
             ->approved()
             ->with(['owners', 'licenses'])
-            ->paginate(20);
+            ->paginate(4);
     }
 }

@@ -56,7 +56,7 @@ class Repository extends Model
     public function getThumbnailAttribute(): string
     {
         if (!$this->thumbnail_url) {
-            return '/example-card.png';
+            return '/example-card.jpg';
         }
 
         return Storage::url($this->thumbnail_url);

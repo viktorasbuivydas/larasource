@@ -1,10 +1,36 @@
 <script setup>
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import VerticalListingCard from '@/Components/Cards/VerticalListingCard.vue';
+import { router } from '@inertiajs/vue3'
+import { ref } from 'vue';
 
-defineProps({
+const props = defineProps({
     repositories: Array
 })
+
+const items = ref(props.repositories);
+const isLoading = ref(false);
+const nextPageUrl = ref(props.repositories.next_page_url);
+
+const loadMore = () => {
+    if (!nextPageUrl.value) {
+        return;
+    }
+
+    isLoading.value = true;
+
+    axios.get(nextPageUrl.value)
+        .then(response => {
+            nextPageUrl.value = response.data.next_page_url;
+            console.log
+            items.value.data.push(...response.data.data);
+        })
+        .finally(() => {
+            isLoading.value = false;
+        })
+}
+
+
 </script>
 
 <template>
@@ -39,10 +65,21 @@ defineProps({
                     show TagsInputInput
                 </div>
             </div>
-            <div class="grow p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <template v-if="repositories.data.length > 0">
-                    <VerticalListingCard v-for="repository in repositories.data" :key="repository.id"
-                        :repository="repository" />
+            <div>
+                <template v-if="items.data.length > 0">
+                    <div class="grow p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <VerticalListingCard v-for="repository in items.data" :key="repository.id"
+                            :repository="repository" />
+                    </div>
+
+                    <div class="flex justify-center grow mt-4">
+
+                        <button class="btn btn-primary flex gap-2" @click="loadMore" v-if="nextPageUrl">
+                            <div>Load more</div>
+                            <span class="loading loading-spinner" v-if="isLoading"></span>
+                        </button>
+                    </div>
+
                 </template>
                 <template v-else>
                     <div class="flex flex-col space-y-4">
