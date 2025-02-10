@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Tags\Tag;
 use App\Models\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,13 +14,15 @@ class IndexController extends Controller
     {
         $page = request()->query('page', 1);
 
+        $tags = Tag::limit(20)->get();
         if ($page === 1) {
             $repositories = Cache::remember('repositories-' . request()->query('page', 1), 60, function () {
                 return $this->getRepositories();
             });
 
             return inertia('Index', [
-                'repositories' => $repositories
+                'repositories' => $repositories,
+                'tags' => $tags
             ]);
         }
 
@@ -28,7 +31,8 @@ class IndexController extends Controller
         }
 
         return inertia('Index', [
-            'repositories' => $this->getRepositories()
+            'repositories' => $this->getRepositories(),
+            'tags' => $tags
         ]);
     }
 
@@ -37,6 +41,6 @@ class IndexController extends Controller
         return Repository::query()
             ->approved()
             ->with(['owners', 'licenses'])
-            ->paginate(4);
+            ->paginate(16);
     }
 }

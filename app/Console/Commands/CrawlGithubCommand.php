@@ -64,7 +64,7 @@ class CrawlGithubCommand extends Command
                 $repositories = GithubRepositoryDTO::fromApiResponse($response->items);
 
                 foreach ($repositories as $repository) {
-                    // Fetch additional repository details
+                    // attach tags from topics
                     // Create or find owner
                     $owner = Owner::firstOrCreate([
                         'login' => $repository->owner->login,
@@ -91,6 +91,8 @@ class CrawlGithubCommand extends Command
                         ['github_id' => $repository->githubId],
                         $repository->toArray()
                     );
+
+                    $repo->attachTags(json_decode($repository->topics));
 
                     // Sync relationships
                     $repo->owners()->sync([$owner->id]);

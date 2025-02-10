@@ -5,7 +5,8 @@ import { router } from '@inertiajs/vue3'
 import { ref } from 'vue';
 
 const props = defineProps({
-    repositories: Array
+    repositories: Array,
+    tags: Array
 })
 
 const items = ref(props.repositories);
@@ -46,26 +47,50 @@ const loadMore = () => {
             </div>
         </div>
         <div class="flex gap-5">
-            <div class="bg-base-200 max-w-[200px] p-2 w-full h-fit hidden xl:flex lg:flex-col gap-2">
-                <h3>Filters</h3>
-                <div>
-                    Type
-                    <select name="" id="">
+            <div class="bg-base-200 max-w-[300px] p-4 w-full h-fit hidden xl:flex lg:flex-col gap-4">
+                <h2>Filters</h2>
+                <div class="flex flex-col gap-2">
+                    <h3>Type</h3>
+                    <select class="bg-gray-800 border-0">
                         <option value="">All</option>
                         <option value="">Project</option>
                         <option value="">Package</option>
                     </select>
                 </div>
                 <div>
-                    Slider forks
+                    <h3>Stars</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" value="0" min="0">
+                        <input type="number" value="100000" min="0" max="100000">
+                    </div>
                 </div>
-                <div>Slider stars</div>
-                <div>Slider watches</div>
                 <div>
-                    show TagsInputInput
+                    <h3>Watchers</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" value="0" min="0">
+                        <input type="number" value="100000" min="0" max="100000">
+                    </div>
+                </div>
+                <div>
+                    <h3>Forks</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" value="0" min="0">
+                        <input type="number" value="100000" min="0" max="100000">
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button class="btn btn-primary grow">Filter</button>
                 </div>
             </div>
-            <div>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <div v-if="tags.length > 0" class="flex flex-wrap gap-2">
+                        <div class="btn btn-xs btn-primary gap-2 hover:bg-indigo-500" v-for="tag in tags" :key="tag.id">
+                            {{ tag.name.en }}
+                            <div class="badge bg-indigo-800 border-0" v-if="tag.count > 0">{{ tag.count }}</div>
+                        </div>
+                    </div>
+                </div>
                 <template v-if="items.data.length > 0">
                     <div class="grow p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         <VerticalListingCard v-for="repository in items.data" :key="repository.id"

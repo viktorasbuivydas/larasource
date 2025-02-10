@@ -20,6 +20,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\SpatieTagsInput;
 use App\Filament\Resources\RepositoryResource\Pages;
 
 class RepositoryResource extends Resource
@@ -65,6 +66,7 @@ class RepositoryResource extends Resource
                     ->relationship('licenses')
                     ->options(fn() => License::pluck('name', 'id'))
                     ->searchable(),
+                SpatieTagsInput::make('tags'),
                 FileUpload::make('thumbnail_url')
                     ->maxFiles(1)
                     ->required()

@@ -13,16 +13,17 @@ const menuItems = [
         icon: Hammer,
         url: '/packages',
     },
-    {
-        name: 'Announcements',
-        icon: Presentation,
-        url: '/announcements',
-    },
-    {
-        name: 'Jobs',
-        icon: HardHat,
-        url: '/jobs',
-    },
+    // TODO IN THE FUTURE
+    // {
+    //     name: 'Announcements',
+    //     icon: Presentation,
+    //     url: '/announcements',
+    // },
+    // {
+    //     name: 'Jobs',
+    //     icon: HardHat,
+    //     url: '/jobs',
+    // },
 ];
 </script>
 <template>

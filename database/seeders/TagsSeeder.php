@@ -14,8 +14,15 @@ class TagsSeeder extends Seeder
             'package'
         ];
 
-        $tags = [
-            // Authentication & Authorization
+        $projectTags = [
+            'E-commerce',
+            'Social Network',
+            'Blog',
+            'CMS',
+            'Learning Management',
+            'Project Management',
+            'Analytics',
+            ''
         ];
 
         collect($types)->each(function ($type) {

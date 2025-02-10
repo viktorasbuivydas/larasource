@@ -32,15 +32,14 @@ export default {
             center: true,
             padding: '2rem',
             screens: {
-                xl: '1500px',
-                
+                xl: '1600px',
             },
         },
     },
 
     plugins: [
-        forms, 
-        typography, 
+        forms,
+        typography,
         require('daisyui')
     ],
 };
