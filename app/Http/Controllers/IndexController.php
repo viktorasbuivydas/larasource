@@ -7,6 +7,8 @@ use App\Models\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class IndexController extends Controller
 {
@@ -15,16 +17,16 @@ class IndexController extends Controller
         $page = request()->query('page', 1);
 
         $tags = Tag::limit(20)->get();
-        if ($page === 1) {
-            $repositories = Cache::remember('repositories-' . request()->query('page', 1), 60, function () {
-                return $this->getRepositories();
-            });
+        // if ($page === 1) {
+        //     $repositories = Cache::remember('repositories-' . request()->query('page', 1), 60, function () {
+        //         return $this->getRepositories();
+        //     });
 
-            return inertia('Index', [
-                'repositories' => $repositories,
-                'tags' => $tags
-            ]);
-        }
+        //     return inertia('Index', [
+        //         'repositories' => $repositories,
+        //         'tags' => $tags
+        //     ]);
+        // }
 
         if (request()->wantsJson()) {
             return $this->getRepositories();
@@ -38,9 +40,22 @@ class IndexController extends Controller
 
     private function getRepositories()
     {
-        return Repository::query()
+        return QueryBuilder::for(Repository::class)
+            ->with('owners')
+            ->allowedFilters([
+                AllowedFilter::belongsTo('type'),
+                AllowedFilter::callback('stars_between', function ($query, $value) {
+                    $query->whereBetween('stargazers_count', $value);
+                }),
+                AllowedFilter::callback('watchers_between', function ($query, $value) {
+                    $query->whereBetween('watchers_count', $value);
+                }),
+                AllowedFilter::callback('forks_between', function ($query, $value) {
+                    $query->whereBetween('forks_count', $value);
+                }),
+            ])
             ->approved()
-            ->with(['owners', 'licenses'])
-            ->paginate(16);
+            ->paginate(16)
+            ->withQueryString();
     }
 }

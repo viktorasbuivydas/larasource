@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use Carbon\Carbon;
+use App\Models\Type;
 use Filament\Tables;
 use App\Models\Owner;
 use App\Models\License;
@@ -58,6 +59,10 @@ class RepositoryResource extends Resource
                         Checkbox::make('archived'),
                         Checkbox::make('disabled')
                     ]),
+                Select::make('type')
+                    ->relationship('type')
+                    ->options(fn() => Type::pluck('name', 'id'))
+                    ->searchable(),
                 Select::make('owners')
                     ->relationship('owners')
                     ->options(fn() => Owner::pluck('login', 'id'))

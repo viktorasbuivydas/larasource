@@ -5,6 +5,7 @@ namespace App\Models;
 use Spatie\Tags\HasTags;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -14,6 +15,7 @@ class Repository extends Model
 
     protected $fillable = [
         'github_id',
+        'type_id',
         'name',
         'full_name',
         'private',
@@ -68,6 +70,11 @@ class Repository extends Model
     public function scopeApproved($query)
     {
         return $query->where('approved_at', '<', now());
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
     }
 
     public function approve()

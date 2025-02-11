@@ -13,6 +13,43 @@ const items = ref(props.repositories);
 const isLoading = ref(false);
 const nextPageUrl = ref(props.repositories.next_page_url);
 
+const filters = ref({
+    type: '',
+    stars: {
+        min: 0,
+        max: 100000
+    },
+    watchers: {
+        min: 0,
+        max: 100000
+    },
+    forks: {
+        min: 0,
+        max: 100000
+    }
+});
+
+const refreshData = () => {
+    isLoading.value = true;
+
+    router.get(route('index'), {
+        filter: {
+            type: filters.value.type,
+            stars_between: `${filters.value.stars.min},${filters.value.stars.max}`,
+            watchers_between: `${filters.value.watchers.min},${filters.value.watchers.max}`,
+            forks_between: `${filters.value.forks.min},${filters.value.forks.max}`
+        }
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: (response) => {
+            items.value = response.props.repositories;
+            nextPageUrl.value = response.props.repositories.next_page_url;
+            isLoading.value = false;
+        }
+    });
+};
+
 const loadMore = () => {
     if (!nextPageUrl.value) {
         return;
@@ -51,35 +88,35 @@ const loadMore = () => {
                 <h2>Filters</h2>
                 <div class="flex flex-col gap-2">
                     <h3>Type</h3>
-                    <select class="bg-gray-800 border-0">
+                    <select v-model="filters.type" class="bg-gray-800 border-0">
                         <option value="">All</option>
-                        <option value="">Project</option>
-                        <option value="">Package</option>
+                        <option value="1">Project</option>
+                        <option value="2">Package</option>
                     </select>
                 </div>
                 <div>
                     <h3>Stars</h3>
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="number" value="0" min="0">
-                        <input type="number" value="100000" min="0" max="100000">
+                        <input type="number" v-model="filters.stars.min" min="0">
+                        <input type="number" v-model="filters.stars.max" min="0" max="100000">
                     </div>
                 </div>
                 <div>
                     <h3>Watchers</h3>
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="number" value="0" min="0">
-                        <input type="number" value="100000" min="0" max="100000">
+                        <input type="number" v-model="filters.watchers.min" min="0">
+                        <input type="number" v-model="filters.watchers.max" min="0" max="100000">
                     </div>
                 </div>
                 <div>
                     <h3>Forks</h3>
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="number" value="0" min="0">
-                        <input type="number" value="100000" min="0" max="100000">
+                        <input type="number" v-model="filters.forks.min" min="0">
+                        <input type="number" v-model="filters.forks.max" min="0" max="100000">
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button class="btn btn-primary grow">Filter</button>
+                    <button class="btn btn-primary grow" @click="refreshData">Filter</button>
                 </div>
             </div>
             <div class="flex flex-col gap-4">

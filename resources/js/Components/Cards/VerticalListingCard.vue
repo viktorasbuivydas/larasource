@@ -15,7 +15,7 @@ defineProps({
         <div class="px-5 py-5 flex flex-col gap-1">
             <div class="flex space-x-2 items-center">
                 <div class="shrink-0">
-                    <img :src="repository.owners[0].avatar_url ?? 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=' + repository.name"
+                    <img :src="repository?.owners[0].avatar_url ?? 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=' + repository.name"
                         alt="" width="30" height="30" class="rounded-full" />
                 </div>
                 <div class="break-words overflow-hidden">
