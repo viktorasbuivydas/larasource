@@ -34,7 +34,7 @@ class IndexController extends Controller
 
         return inertia('Index', [
             'repositories' => $this->getRepositories(),
-            'tags' => $tags
+            'tags' => $tags,
         ]);
     }
 
@@ -44,6 +44,8 @@ class IndexController extends Controller
             ->with('owners')
             ->allowedFilters([
                 AllowedFilter::belongsTo('type'),
+                //tags
+                AllowedFilter::scope('tag'),
                 AllowedFilter::callback('stars_between', function ($query, $value) {
                     $query->whereBetween('stargazers_count', $value);
                 }),

@@ -21,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Forms\Components\SpatieTagsInput;
 use App\Filament\Resources\RepositoryResource\Pages;
 
@@ -63,6 +64,8 @@ class RepositoryResource extends Resource
                     ->relationship('type')
                     ->options(fn() => Type::pluck('name', 'id'))
                     ->searchable(),
+                SpatieTagsInput::make('tags')
+                    ->columnSpanFull(),
                 Select::make('owners')
                     ->relationship('owners')
                     ->options(fn() => Owner::pluck('login', 'id'))
@@ -87,6 +90,7 @@ class RepositoryResource extends Resource
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('full_name'),
+                SpatieTagsColumn::make('tags'),
                 BooleanColumn::make('approved_at')
                     ->sortable()
                     ->label('Approved')

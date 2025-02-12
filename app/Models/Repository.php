@@ -77,6 +77,11 @@ class Repository extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function scopeTag($query, $tag)
+    {
+        return $query->withAnyTags($tag);
+    }
+
     public function approve()
     {
         $this->update([
