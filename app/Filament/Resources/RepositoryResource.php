@@ -76,7 +76,6 @@ class RepositoryResource extends Resource
                     ->relationship('licenses')
                     ->options(fn() => License::pluck('name', 'id'))
                     ->searchable(),
-                SpatieTagsInput::make('tags'),
                 FileUpload::make('thumbnail_url')
                     ->maxFiles(1)
                     ->required()
