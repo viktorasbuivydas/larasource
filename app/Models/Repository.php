@@ -88,4 +88,9 @@ class Repository extends Model
             'approved_at' => now()
         ]);
     }
+
+    public function scopeNotApproved($query)
+    {
+        return $query->whereNull('approved_at');
+    }
 }

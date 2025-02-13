@@ -48,6 +48,7 @@ trait CanPaginateViewRecord
             ->getRecord()
             ->where('id', '<', $this->getRecord()->id)
             ->orderBy('id', 'desc')
+            ->notApproved()
             ->first();
     }
 
@@ -57,6 +58,7 @@ trait CanPaginateViewRecord
             ->getRecord()
             ->where('id', '>', $this->getRecord()->id)
             ->orderBy('id', 'asc')
+            ->notApproved()
             ->first();
     }
 }
