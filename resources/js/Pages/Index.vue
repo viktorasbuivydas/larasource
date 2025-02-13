@@ -82,26 +82,6 @@ const hasActiveFilters = computed(() => {
         urlParams.toString() !== '';
 });
 
-const clearFilters = () => {
-    filters.value = {
-        type: '',
-        stars: {
-            min: 0,
-            max: 100000
-        },
-        watchers: {
-            min: 0,
-            max: 100000
-        },
-        forks: {
-            min: 0,
-            max: 100000
-        }
-    };
-
-    router.get(route('index'));
-};
-
 const refreshData = () => {
     isLoading.value = true;
 
@@ -169,9 +149,9 @@ const loadMore = () => {
             <div class="bg-base-200 max-w-[300px] p-4 w-full h-fit hidden xl:flex lg:flex-col gap-4">
                 <div class="flex justify-between items-center">
                     <h2>Filters</h2>
-                    <button v-if="hasActiveFilters" @click="clearFilters" class="btn btn-xs btn-ghost">
-                        Clear filters
-                    </button>
+                    <Link v-if="hasActiveFilters" :href="route('index')" class="btn btn-xs btn-ghost">
+                    Clear filters
+                    </Link>
                 </div>
                 <div class="flex flex-col gap-2">
                     <h3>Type</h3>
