@@ -9,7 +9,7 @@ defineProps({
 <template>
     <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a :href="repository.html_url" target="_blank" nofollow>
-            <img class="rounded-t-lg object-cover max-h-[175px] w-full" :src="repository?.thumbnail"
+            <img class="rounded-t-lg object-cover max-h-[175px] h-full w-full" :src="repository?.thumbnail"
                 :alt="repository.name" />
         </a>
         <div class="px-5 py-5 flex flex-col gap-1">
