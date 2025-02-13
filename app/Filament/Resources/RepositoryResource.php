@@ -78,7 +78,6 @@ class RepositoryResource extends Resource
                     ->searchable(),
                 FileUpload::make('thumbnail_url')
                     ->maxFiles(1)
-                    ->required()
                     ->imageResizeTargetWidth('200')
                     ->imageResizeTargetHeight('400')
                     ->directory('repositories/thumbails')
