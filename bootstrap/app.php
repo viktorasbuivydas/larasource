@@ -32,7 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ])
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command(ApproveInterestingRepositories::class, [
-            'limit' => 60
+            'limit' => 100
         ])->hourly();
     })
     ->create();
