@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Foundation\Application;
+
+use Illuminate\Console\Scheduling\Schedule;
 use App\Console\Commands\CrawlGithubCommand;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Console\Commands\ApproveInterestingRepositories;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -26,4 +30,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withCommands([
         CrawlGithubCommand::class
     ])
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->command(ApproveInterestingRepositories::class, [
+            'limit' => 60
+        ])->hourly();
+    })
     ->create();
