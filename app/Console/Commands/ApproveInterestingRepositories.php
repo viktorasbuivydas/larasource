@@ -85,7 +85,7 @@ class ApproveInterestingRepositories extends Command
         }
 
         $result = OpenAI::chat()->create([
-            'model' => 'gpt-4o',
+            'model' => 'gpt-4o-mini',
             'messages' => [
                 [
                     'role' => 'user',
