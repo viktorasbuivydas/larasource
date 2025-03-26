@@ -5,13 +5,14 @@ namespace App\Models;
 use Spatie\Tags\HasTags;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Repository extends Model
 {
-    use HasTags;
+    use HasTags, SoftDeletes;
 
     protected $fillable = [
         'github_id',
@@ -34,6 +35,7 @@ class Repository extends Model
         'created_repository_at',
         'updated_repository_at',
         'approved_at',
+        'reason',
         'thumbnail_url'
     ];
 
