@@ -45,7 +45,9 @@ class Repository extends Model
         'archived' => 'boolean',
         'disabled' => 'boolean',
         'topics' => 'array',
-        'approved_at' => 'datetime'
+        'approved_at' => 'datetime',
+        'created_repository_at' => 'datetime',
+        'updated_repository_at' => 'datetime'
     ];
 
     public function owners(): BelongsToMany
