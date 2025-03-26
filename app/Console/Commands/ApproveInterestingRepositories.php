@@ -163,6 +163,8 @@ class ApproveInterestingRepositories extends Command
                 $this->warn("Repository {$repository->full_name} was not approved: " . ($evaluation['reason'] ?? 'No reason provided'));
                 $repository->delete();
             }
+
+            sleep(2);
         } catch (\Exception $e) {
             $this->error("Failed to process evaluation response for {$repository->full_name}: " . $e->getMessage());
         }
