@@ -64,6 +64,11 @@ class CrawlGithubCommand extends Command
                 $repositories = GithubRepositoryDTO::fromApiResponse($response->items);
 
                 foreach ($repositories as $repository) {
+
+                    if ($repository->disabled || $repository->archived) {
+                        continue;
+                    }
+
                     // attach tags from topics
                     // Create or find owner
                     $owner = Owner::firstOrCreate([
