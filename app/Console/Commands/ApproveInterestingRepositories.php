@@ -84,6 +84,11 @@ class ApproveInterestingRepositories extends Command
             }
         }
 
+        // Ensure proper UTF-8 encoding for the readme content
+        if ($readme !== null) {
+            $readme = mb_convert_encoding($readme, 'UTF-8', 'UTF-8');
+        }
+
         $result = OpenAI::chat()->create([
             'model' => 'gpt-4o-mini',
             'messages' => [
@@ -96,12 +101,12 @@ class ApproveInterestingRepositories extends Command
 
                         1.  **README Content:**
                             ```markdown
-                            ' . $readme . '
+                            ' . ($readme ?? 'No README found') . '
                             ```
 
                         2.  **Repository Metadata (JSON):** Contains details like `name`, `description`, `fork` (boolean), `archived` (boolean), `stargazers_count`, `open_issues_count`, `language`, `updated_at`, `license`, etc.
                             ```json
-                            ' . json_encode($repository) . '
+                            ' . json_encode($repository, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '
                             ```
 
                         **Evaluation Criteria:**
@@ -141,12 +146,16 @@ class ApproveInterestingRepositories extends Command
 
         $response = $result->choices[0]->message->content;
         $this->info("Evaluation for {$repository->full_name}:");
-        $this->line(''); // Fixed: Added empty string as argument
+        $this->line('');
 
         try {
             $evaluation = str_replace('```json', '', $response);
             $evaluation = str_replace('```', '', $evaluation);
             $evaluation = json_decode($evaluation, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON response: ' . json_last_error_msg());
+            }
 
             if (isset($evaluation['suitable']) && $evaluation['suitable'] === true) {
                 if (!$dryRun) {
