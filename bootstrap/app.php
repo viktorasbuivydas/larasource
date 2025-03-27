@@ -31,6 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
         CrawlGithubCommand::class
     ])
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command(ApproveInterestingRepositories::class)->at('10:05');
+        $schedule->command(ApproveInterestingRepositories::class)->at('10:10');
     })
     ->create();
